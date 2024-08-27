@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import moment from "moment";
 import { motion } from "framer-motion";
 
+
 const NavbarTop = () => {
   const [currentDate, setCurrentDate] = useState({
     year: moment().year(),
