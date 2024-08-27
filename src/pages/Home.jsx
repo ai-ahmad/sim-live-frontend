@@ -1,25 +1,31 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import { increaseBalance } from '../store/actions/balanceActions';
+import { getBalance } from '../store/actions/TimeValentAction';
 
 const Home = () => {
-  // Redux store'dan balance holatini o'qish
   const balance = useSelector(state => state.balance.balance);
+  const TimeBalance = useSelector(state => state.timeValent.TimeBalance);
   const dispatch = useDispatch();
   const [isZoomed, setIsZoomed] = useState(false);
+  console.log(TimeBalance)
+  useEffect(() => {
+    const interval = setInterval(() => {
+      dispatch(increaseBalance(TimeBalance))
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [dispatch]);
 
-  // Balansni 100 so'mga oshirish funksiyasi
   const handleIncrease = () => {
-    dispatch(increaseBalance(100));  // Redux action dispatcher
-    setIsZoomed(true);  // Rasmni kattalashtirish effekti
+    dispatch(increaseBalance(100));  
+    setIsZoomed(true); 
   };
 
-  // Zoom effektini orqaga qaytarish timeri
   useEffect(() => {
     if (isZoomed) {
       const timer = setTimeout(() => {
         setIsZoomed(false);
-      }, 70);  // Zoomdan keyin 70 millisekund o'tgach, effektni bekor qilish
+      }, 70);
       return () => clearTimeout(timer);
     }
   }, [isZoomed]);
@@ -48,7 +54,7 @@ const Home = () => {
               className="w-6 h-6"
             />
             <span className="ml-2 text-lg font-bold text-green-500">
-              584 552,94 so'm
+             {TimeBalance} so'm
             </span>
           </div>
         </div>
@@ -66,7 +72,7 @@ const Home = () => {
       <div className="h-1/2 flex justify-center items-center">
         <div className="flex justify-between gap-4">
           <img 
-            src="../public/money.jpg" 
+            src="/money.jpg"  
             alt="Money Increase" 
             className={`w-64 h-64 cursor-pointer ${isZoomed ? 'scale-125 z-50 transition-transform duration-300 ease-out' : 'transition-transform duration-300 ease-out'}`}
             onClick={handleIncrease}
