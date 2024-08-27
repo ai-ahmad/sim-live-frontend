@@ -1,12 +1,22 @@
 import React, { useState, useEffect } from "react";
 import moment from "moment";
+import { motion } from "framer-motion";
 
 const NavbarTop = () => {
   const [currentDate, setCurrentDate] = useState({
     year: moment().year(),
-    month: moment().month() + 1, // Moment.js months are zero-indexed, so add 1
+    month: moment().month(), // Month is zero-indexed, so +1
     day: moment().date(),
   });
+
+  useEffect(() => {
+    // Ensure day and month are always two digits
+    setCurrentDate(prevDate => ({
+      ...prevDate,
+      month: String(prevDate.month).padStart(2, '0'),
+      day: String(prevDate.day).padStart(2, '0'),
+    }));
+  }, []);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -18,8 +28,8 @@ const NavbarTop = () => {
           .add(1, 'days');
         return {
           year: newDate.year(),
-          month: (newDate.month() + 1) < 10 ? `0${newDate.month() + 1}` : (newDate.month() + 1).toString(),
-          day: newDate.date() < 10 ? `0${newDate.date()}` : newDate.date().toString(),
+          month: String(newDate.month() + 1).padStart(2, '0'), // Ensure month is two digits
+          day: String(newDate.date()).padStart(2, '0'), // Ensure day is two digits
         };
       });
     }, 5000); // Updates every 5 seconds
@@ -27,22 +37,62 @@ const NavbarTop = () => {
     return () => clearInterval(interval); // Cleanup interval on unmount
   }, []);
 
+  const containerVariants = {
+    hidden: { opacity: 0, y: -20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { type: "spring", stiffness: 100 }
+    }
+  };
+
   return (
     <div className="navbar bg-base-300">
       <div className="flex-1">
         <a className="btn btn-ghost text-xl">Life Sim</a>
       </div>
       <div className="flex-none gap-2">
-        <div className="flex gap-5 text-center auto-cols-max">
-          <div className="flex flex-col p-2 rounded-box text-neutral-content">
-            <span className="font-mono text-lg">
-              <span>{currentDate.year}</span>:
-              <span>{currentDate.month < 10 ? `0${currentDate.month}` : currentDate.month}</span>:
-              <span>{currentDate.day}</span>
-
-            </span>
+        <motion.div 
+          className="flex gap-5 text-center auto-cols-max"
+          initial="hidden"
+          animate="visible"
+          variants={containerVariants}
+        >
+          <div className="flex items-center p-2 rounded-box text-neutral-content">
+            <motion.span 
+              className="font-mono text-lg"
+              key={currentDate.year}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              {currentDate.year}
+            </motion.span>
+            :
+            <motion.span 
+              className="font-mono text-lg"
+              key={currentDate.month}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              {currentDate.month}
+            </motion.span>
+            :
+            <motion.span 
+              className="font-mono text-lg"
+              key={currentDate.day}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              {currentDate.day}
+            </motion.span>
           </div>
-        </div>
+        </motion.div>
         <div className="dropdown dropdown-end">
           <div
             tabIndex={0}
