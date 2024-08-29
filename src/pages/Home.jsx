@@ -1,31 +1,67 @@
 import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from 'react-redux';
-import { increaseBalance } from '../store/actions/balanceActions';
+import { useSelector, useDispatch } from "react-redux";
+import { increaseBalance } from "../store/actions/balanceActions";
+import TrophyModal from "../components/TrophyModal";
+import ProgressBar from "../components/ProgressBar";
+import Exclamation from "../components/Exclamation";
+import { motion } from "framer-motion";
 
 const Home = () => {
-  // Redux store'dan balance holatini o'qish
-  const balance = useSelector(state => state.balance.balance);
+  const balance = useSelector((state) => state.balance.balance);
   const dispatch = useDispatch();
   const [isZoomed, setIsZoomed] = useState(false);
+  const [clicks, setClicks] = useState(() => {
+    return parseInt(localStorage.getItem("clicks")) || 0;
+  });
+  const [level, setLevel] = useState(() => {
+    return parseInt(localStorage.getItem("level")) || 1;
+  });
+  const [progress, setProgress] = useState(() => {
+    return parseInt(localStorage.getItem("progress")) || 0;
+  });
+  const clicksToNextLevel = 1000 + (level - 1) * 100;
 
-  // Balansni 100 so'mga oshirish funksiyasi
   const handleIncrease = () => {
-    dispatch(increaseBalance(100));  // Redux action dispatcher
-    setIsZoomed(true);  // Rasmni kattalashtirish effekti
+    dispatch(increaseBalance(100));
+    setIsZoomed(true);
+    const updatedClicks = clicks + 1;
+    setClicks(updatedClicks);
+    const newProgress = (updatedClicks / clicksToNextLevel) * 100;
+    setProgress(newProgress);
+
+    if (updatedClicks >= clicksToNextLevel) {
+      setLevel((prev) => prev + 1);
+      setClicks(0);
+      setProgress(0);
+    }
   };
 
-  // Zoom effektini orqaga qaytarish timeri
   useEffect(() => {
     if (isZoomed) {
       const timer = setTimeout(() => {
         setIsZoomed(false);
-      }, 70);  // Zoomdan keyin 70 millisekund o'tgach, effektni bekor qilish
+      }, 70);
       return () => clearTimeout(timer);
     }
   }, [isZoomed]);
 
+  useEffect(() => {
+    localStorage.setItem("level", level);
+    localStorage.setItem("progress", progress);
+    localStorage.setItem("clicks", clicks);
+  }, [level, progress, clicks]);
+
   return (
-    <div className="relative h-screen bg-white overflow-hidden flex flex-col" style={{ maxHeight: "100vh" }}>
+    <div
+      className="relative h-screen bg-white overflow-hidden flex flex-col"
+      style={{ maxHeight: "100vh" }}
+    >
+      <div className="absolute top-0 left-0 z-20 ml-5">
+        <TrophyModal />
+        <Exclamation/>
+      </div>
+    
+
       <div className="relative w-full h-2/5">
         <img
           src="https://img.freepik.com/premium-photo/beige-wooden-bungalow-estate-created-using-generative-ai-technology_772924-8614.jpg?w=1380"
@@ -52,8 +88,8 @@ const Home = () => {
             </span>
           </div>
         </div>
-      </div>     
-  
+      </div>
+
       <div className="absolute top-1/3 left-0 right-0 flex justify-center items-center">
         <div className="bg-white shadow-lg rounded-lg p-4 z-10">
           <p className="text-center text-xl font-semibold">Баланс</p>
@@ -65,13 +101,21 @@ const Home = () => {
 
       <div className="h-1/2 flex justify-center items-center">
         <div className="flex justify-between gap-4">
-          <img 
-            src="../public/money.jpg" 
-            alt="Money Increase" 
-            className={`w-64 h-64 cursor-pointer ${isZoomed ? 'scale-125 z-50 transition-transform duration-300 ease-out' : 'transition-transform duration-300 ease-out'}`}
+          <img
+            src="../public/money.jpg"
+            alt="Money Increase"
+            className={`w-64 h-64 cursor-pointer ${
+              isZoomed
+                ? "scale-125 z-50 transition-transform duration-300 ease-out"
+                : "transition-transform duration-300 ease-out"
+            }`}
             onClick={handleIncrease}
           />
         </div>
+      </div>
+
+      <div className="absolute top-2 left-32 z-20 size-32">
+        <ProgressBar progress={progress} level={level} />
       </div>
     </div>
   );

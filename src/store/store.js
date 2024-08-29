@@ -3,20 +3,20 @@ import { configureStore } from "@reduxjs/toolkit";
 import storage from "redux-persist/lib/storage";
 import { persistReducer, persistStore } from "redux-persist";
 import { combineReducers } from "redux";
-import {thunk} from "redux-thunk";
 import authReducer from "./reducers/authSlice";
-import balanceReducer from "./reducers/balanceReducer";  // Imported the balance reducer
+import balanceReducer from "./reducers/balanceReducer"; 
 
-const persistConfig = {
-  key: "root",
+const balancePersistConfig = {
+  key: "balance",
   storage,
 };
 
 const rootReducer = combineReducers({
-  auth: persistReducer(persistConfig, authReducer),
-  balance: balanceReducer,  // Added balance reducer directly
+  auth: persistReducer({ key: "auth", storage }, authReducer),
+  balance: persistReducer(balancePersistConfig, balanceReducer), // Wrap the balance reducer with persistReducer
 });
 
+// No need to import redux-thunk explicitly; it's included by default in configureStore
 export const store = configureStore({
   reducer: rootReducer,
   middleware: (getDefaultMiddleware) =>
@@ -25,7 +25,7 @@ export const store = configureStore({
         ignoredActions: ["persist/PERSIST", "persist/REHYDRATE"],
         ignoredPaths: ["auth.token"],  // Adjusted to reflect actual ignored paths
       },
-    }).concat(thunk),
+    }),
 });
 
 export const persistor = persistStore(store);
