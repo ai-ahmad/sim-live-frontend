@@ -13,12 +13,13 @@ import {
   Settings,
   Trading,
   ErrorPage,
+  History,
 } from "./pages";
-import PrivateRoute from "./Service/PrivateRouter.jsx";
+import PrivateRoute from "./Service/PrivateRouter.jsx"; 
 import { PersistGate } from "redux-persist/integration/react";
-import { persistor, store } from "./store/store.js";
+import { persistor, store } from "./store/store.js"; 
 import { Provider } from "react-redux";
-import Auth from "./pages/Auth.jsx";
+import Auth from "./pages/Auth.jsx"; 
 
 const router = createBrowserRouter([
   {
@@ -38,13 +39,12 @@ const router = createBrowserRouter([
       { path: "/Settings", element: <Settings /> },
       { path: "/Shop", element: <Shop /> },
       { path: "/Trading", element: <Trading /> },
-      { path: "*", element: <ErrorPage /> },
-      { path: "/Settings", element: <Settings /> },
+      { path: "*", element: <ErrorPage /> }, // Error page for undefined routes
     ],
   },
   {
     path: "/auth",
-    element: <Auth />,
+    element: <Auth />, 
   },
 ]);
 
