@@ -74,3 +74,23 @@ const Auth = () => {
 };
 
 export default Auth;
+
+
+
+
+
+     {/* Stats and Other Information */}
+      {/* <div className="mt-4 text-center">
+        <p className="text-gray-600">Чистая стоимость</p>
+        <p className="text-lg text-green-700">1 064 129,45 so'm</p>
+        <p className="text-gray-600 mt-2">Баланс</p>
+        <p className="text-lg text-green-700">1 064 129,45 so'm</p>
+        <p className="text-gray-600 mt-2">Бизнес</p>
+        <p className="text-lg text-green-700">0,00 so'm</p>
+        <p className="text-gray-600 mt-2">Акции</p>
+        <p className="text-lg text-green-700">0,00 so'm</p>
+        <p className="text-gray-600 mt-2">Криптовалюта</p>
+        <p className="text-lg text-green-700">0,00 so'm</p>
+        <p className="text-gray-600 mt-2">Уровень инфляции</p>
+        <p className="text-lg text-red-700">1.00%</p>
+      </div> */}  
