@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { increaseBalance } from "../store/actions/balanceActions";
+import { getBalance } from '../store/actions/TimeValentAction';
 import TrophyModal from "../components/TrophyModal";
 import ProgressBar from "../components/ProgressBar";
 import Exclamation from "../components/Exclamation";
@@ -8,6 +9,8 @@ import { motion } from "framer-motion";
 
 const Home = () => {
   const balance = useSelector((state) => state.balance.balance);
+  const TimeBalance = useSelector(state => state.timeValent.TimeBalance);
+  console.log(TimeBalance)
   const dispatch = useDispatch();
   const [isZoomed, setIsZoomed] = useState(false);
   const [clicks, setClicks] = useState(() => {
@@ -20,6 +23,13 @@ const Home = () => {
     return parseInt(localStorage.getItem("progress")) || 0;
   });
   const clicksToNextLevel = 1000 + (level - 1) * 100;
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      dispatch(increaseBalance(TimeBalance))
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [dispatch, TimeBalance]);
 
   const handleIncrease = () => {
     dispatch(increaseBalance(100));
@@ -60,7 +70,6 @@ const Home = () => {
         <TrophyModal />
         <Exclamation/>
       </div>
-    
 
       <div className="relative w-full h-2/5">
         <img
@@ -84,7 +93,7 @@ const Home = () => {
               className="w-6 h-6"
             />
             <span className="ml-2 text-lg font-bold text-green-500">
-              584 552,94 so'm
+             {TimeBalance} so'm
             </span>
           </div>
         </div>
@@ -101,14 +110,10 @@ const Home = () => {
 
       <div className="h-1/2 flex justify-center items-center">
         <div className="flex justify-between gap-4">
-          <img
-            src="../public/money.jpg"
-            alt="Money Increase"
-            className={`w-64 h-64 cursor-pointer ${
-              isZoomed
-                ? "scale-125 z-50 transition-transform duration-300 ease-out"
-                : "transition-transform duration-300 ease-out"
-            }`}
+          <img 
+            src="../public/money.jpg"  
+            alt="Money Increase" 
+            className={`w-64 h-64 cursor-pointer ${isZoomed ? 'scale-125 z-50 transition-transform duration-300 ease-out' : 'transition-transform duration-300 ease-out'}`}
             onClick={handleIncrease}
           />
         </div>
