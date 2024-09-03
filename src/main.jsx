@@ -40,6 +40,8 @@ const router = createBrowserRouter([
       { path: "/Shop", element: <Shop /> },
       { path: "/Trading", element: <Trading /> },
       { path: "*", element: <ErrorPage /> }, // Error page for undefined routes
+      
+      
     ],
   },
   {
