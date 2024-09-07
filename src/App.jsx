@@ -3,7 +3,8 @@ import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import NavbarTop from "./components/Navbar/NavbarTop";
 import NavbarBottom from "./components/Navbar/NavbarBottom";
-import { Outlet } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
+import { FcComments } from "react-icons/fc";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -18,6 +19,9 @@ function App() {
       </main>
       <footer>
         <NavbarBottom />
+        <Link to="/chat" className="btn btn-circle text-xl size-12 fixed bottom-20 right-5 z-50">
+          <FcComments />
+        </Link>
       </footer>
     </>
   );
