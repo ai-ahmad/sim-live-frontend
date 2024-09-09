@@ -19,7 +19,7 @@ const TrophyModal = () => {
           src="./public/abu.jpg"
           alt="Trophy"
           className={`cursor-pointer ${isZoomed ? 'scale-125 z-50 transition-transform duration-300 ease-out' : 'transition-transform duration-300 ease-out'}`}
-          style={{ width: '100px', height: '100px' }} 
+          style={{ width: '50px', height: '50px' }} 
         />
       </button>
       <dialog id="my_modal_4" className="modal">

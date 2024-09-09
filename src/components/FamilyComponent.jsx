@@ -23,23 +23,38 @@ const characters = [
     role: 'Son',
     description: 'A young and energetic boy who loves adventures.',
   },
+  {
+    img: "https://media.istockphoto.com/id/1282162788/photo/toothy-smile-and-look-full-of-fun-and-joy-on-the-face-curly-haired-tanned-woman-entertainment.jpg?s=612x612&w=0&k=20&c=t7kAKXf9GXcWiszCxg7Bz_BTtdL2RyTPe-dxj6Ljxt8=",
+    id: 4,
+    name: 'Sam Doe Jr.',
+    role: 'Son',
+    description: 'Another energetic young boy.',
+  },
+  {
+    img: "https://media.istockphoto.com/id/1282162788/photo/toothy-smile-and-look-full-of-fun-and-joy-on-the-face-curly-haired-tanned-woman-entertainment.jpg?s=612x612&w=0&k=20&c=t7kAKXf9GXcWiszCxg7Bz_BTtdL2RyTPe-dxj6Ljxt8=",
+    id: 5,
+    name: 'Jill Doe',
+    role: 'Daughter',
+    description: 'A creative and imaginative girl.',
+  },
+  {
+    img: "https://media.istockphoto.com/id/1282162788/photo/toothy-smile-and-look-full-of-fun-and-joy-on-the-face-curly-haired-tanned-woman-entertainment.jpg?s=612x612&w=0&k=20&c=t7kAKXf9GXcWiszCxg7Bz_BTtdL2RyTPe-dxj6Ljxt8=",
+    id: 6,
+    name: 'Baby Doe',
+    role: 'Infant',
+    description: 'The newest member of the family.',
+  },
 ];
 
 const FamilyComponent = () => {
   const [coins, setCoins] = useState(characters.map(() => 0));
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedCharacterIndex, setSelectedCharacterIndex] = useState(null);
-  const [modalPosition, setModalPosition] = useState({ top: 0, left: 0 });
-  const [tempCoins, setTempCoins] = useState(0); // Temporary state to track changes
+  const [tempCoins, setTempCoins] = useState(0);
 
-  const handleThrowCoin = (index, event) => {
-    const buttonRect = event.target.getBoundingClientRect();
-    setModalPosition({
-      top: buttonRect.top - 50, // Positioning the modal just above the button
-      left: buttonRect.left + buttonRect.width / 2 - 50, // Center the modal horizontally
-    });
+  const handleThrowCoin = (index) => {
     setSelectedCharacterIndex(index);
-    setTempCoins(0); // Reset temp coins to 0 when modal opens
+    setTempCoins(0);
     setIsModalOpen(true);
   };
 
@@ -48,12 +63,12 @@ const FamilyComponent = () => {
   };
 
   const handleSubtractCoins = () => {
-    setTempCoins(Math.max(tempCoins - 100, 0)); // Prevent going below 0
+    setTempCoins(Math.max(tempCoins - 100, 0));
   };
 
   const handleSendCoins = () => {
     const newCoins = [...coins];
-    newCoins[selectedCharacterIndex] += tempCoins; // Apply the temp coin changes
+    newCoins[selectedCharacterIndex] += tempCoins;
     setCoins(newCoins);
     closeModal();
   };
@@ -64,88 +79,65 @@ const FamilyComponent = () => {
   };
 
   return (
-    <div className="overflow-x-auto">
-      <table className="table-auto w-full bg-gray-100 rounded-lg shadow-lg">
-        <thead>
-          <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
-            <th className="py-3 px-6 text-left">Character</th>
-            <th className="py-3 px-6 text-left">Role</th>
-            <th className="py-3 px-6 text-center">Description</th>
-            <th className="py-3 px-6 text-center">Coins</th>
-            <th className="py-3 px-6 text-center">Action</th>
-          </tr>
-        </thead>
-        <tbody className="text-gray-600 text-sm font-light">
-          {characters.map((character, index) => (
-            <tr key={character.id} className="border-b border-gray-200 hover:bg-gray-100">
-              <td className="py-3 px-6 text-left">
-                <div className="flex items-center">
-                  <div className="mr-2">
-                    <img src={character.img} alt={character.name} className="w-10 h-10 rounded-full" />
-                  </div>
-                  <span>{character.name}</span>
-                </div>
-              </td>
-              <td className="py-3 px-6 text-left">
-                <span>{character.role}</span>
-              </td>
-              <td className="py-3 px-6 text-center">
-                <span>{character.description}</span>
-              </td>
-              <td className="py-3 px-6 text-center">
-                <span>{coins[index]} <FaCoins className="inline" /></span>
-              </td>
-              <td className="py-3 px-6 text-center">
-                <button
-                  onClick={(event) => handleThrowCoin(index, event)}
-                  className="bg-blue-500 text-white py-1 px-3 rounded-lg hover:bg-blue-700"
-                >
-                  Throw Coin
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-
-      {isModalOpen && (
-        <div
-          className="fixed bg-white p-4 rounded-lg shadow-lg"
-          style={{
-            position: 'fixed',
-            top: `${modalPosition.top}px`,
-            left: `${modalPosition.left}px`,
-            transform: 'translate(-50%, -100%)', // Align the modal above the button
-            zIndex: 1000,
-          }}
-        >
-          <div className="flex items-center justify-between mb-2">
+    <div className="pb-20 relative">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+        {characters.map((character, index) => (
+          <div
+            key={character.id}
+            className="bg-white rounded-lg shadow-lg p-4 flex flex-col items-center text-center"
+          >
+            <img
+              src={character.img}
+              alt={character.name}
+              className="w-32 h-32 rounded-full object-cover mb-4"
+            />
+            <h2 className="text-lg font-semibold mb-2">{character.name}</h2>
+            <h3 className="text-md text-gray-500 mb-2">{character.role}</h3>
+            <p className="text-gray-600 mb-4">{character.description}</p>
+            <p className="text-green-600 font-semibold mb-4">
+              {coins[index]} <FaCoins className="inline" />
+            </p>
             <button
-              onClick={handleSubtractCoins}
-              className="bg-red-500 text-white py-2 px-3 rounded-lg hover:bg-red-700"
+              onClick={() => handleThrowCoin(index)}
+              className="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition duration-200"
             >
-              - <FaCoins className="inline" />
-            </button>
-            <span className="mx-4">{tempCoins} <FaCoins className="inline" /></span>
-            <button
-              onClick={handleAddCoins}
-              className="bg-green-500 text-white py-2 px-3 rounded-lg hover:bg-green-700"
-            >
-              + <FaCoins className="inline" />
+              Throw Coin
             </button>
           </div>
-          <button
-            onClick={handleSendCoins}
-            className="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-700 w-full"
-          >
-            Send
-          </button>
-          <button
-            onClick={closeModal}
-            className="mt-2 text-sm text-gray-500 underline w-full text-center"
-          >
-            Close
-          </button>
+        ))}
+      </div>  
+
+      {isModalOpen && (
+        <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-75 z-50">
+          <div className="bg-white p-4 rounded-lg shadow-lg min-w-[300px] w-11/12 max-w-md">
+            <div className="flex items-center justify-between mb-4">
+              <button
+                onClick={handleSubtractCoins}
+                className="bg-red-500 text-white py-2 px-3 rounded-lg hover:bg-red-700 transition duration-200"
+              >
+                - <FaCoins className="inline" />
+              </button>
+              <span className="mx-4">{tempCoins} <FaCoins className="inline" /></span>
+              <button
+                onClick={handleAddCoins}
+                className="bg-green-500 text-white py-2 px-3 rounded-lg hover:bg-green-700 transition duration-200"
+              >
+                + <FaCoins className="inline" />
+              </button>
+            </div>
+            <button
+              onClick={handleSendCoins}
+              className="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-700 w-full transition duration-200"
+            >
+              Send
+            </button>
+            <button
+              onClick={closeModal}
+              className="mt-4 text-sm text-gray-500 underline w-full text-center"
+            >
+              Close
+            </button>
+          </div>
         </div>
       )}
     </div>
