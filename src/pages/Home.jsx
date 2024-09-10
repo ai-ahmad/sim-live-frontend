@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { increaseBalance } from "../store/actions/balanceActions";
 import { getBalance } from "../store/actions/TimeValentAction";
-import TrophyModal from "../components/TrophyModal";
+import TrophyModal from "../components/Modal/TrophyModal";
 import ProgressBar from "../components/ProgressBar";
 import Exclamation from "../components/Exclamation";
 import { motion } from "framer-motion";

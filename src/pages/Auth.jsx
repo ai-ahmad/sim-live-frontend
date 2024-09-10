@@ -5,7 +5,7 @@ import { FaApple, FaLock } from "react-icons/fa";
 import { BsApple } from "react-icons/bs";
 
 const Auth = () => {
-  const apiUrl = import.meta.env.VITE_APP_SUB_TITLE;
+  const GameName = import.meta.env.VITE_APP_SUB_TITLE;
 
   return (
     <div className='h-screen flex  justify-center items-center bg-[url("loginBG.jpg")]'>
@@ -14,7 +14,7 @@ const Auth = () => {
         className="w-5/6 xl:w-2/4 min-h-[70vh] flex flex-col justify-between xl:h-1/2 bg-base-300 bg-opacity-80 rounded-2xl p-5 shadow-lg shadow-cyan-400 border-2 border-primary"
       >
         <p className="text-center font-mono font-black text-primary">
-          {apiUrl}
+          {GameName}
         </p>
         <div className="flex flex-col gap-2">
           <label className="input input-bordered text-primary placeholder:text-primary input-primary flex items-center gap-2">

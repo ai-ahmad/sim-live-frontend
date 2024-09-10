@@ -19,7 +19,10 @@ function App() {
       </main>
       <footer>
         <NavbarBottom />
-        <Link to="/chat" className="btn btn-circle text-xl size-12 fixed bottom-20 right-5 z-50">
+        <Link
+          to="/chat"
+          className="btn btn-circle text-xl size-12 fixed bottom-20 right-5 z-50"
+        >
           <FcComments />
         </Link>
       </footer>
