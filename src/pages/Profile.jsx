@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-  import Xd from "../components/Xd";
+import Xd from "../components/Xd";
 import FamilyComponent from "../components/FamilyComponent";
 import Cls from "../components/MyGarage";
 import { MdFamilyRestroom } from "react-icons/md";
@@ -30,8 +30,8 @@ const Profile = () => {
   };
 
   return (
-    <div className="w-full  flex flex-col items-center bg-gray-100">
-     <div className="w-full h-[50vh] bg-center bg-cover relative">
+    <div className=" w-full  flex flex-col items-center bg-gray-100">
+     <div className="w-full h-[50vh] bg-center bg-cover relative ">
   <img
     src="https://248006.selcdn.ru/main/iblock/c4d/c4def2b61b5ba7382e465c306cd155db/64df55189e4f6ede9724757591587444.png"
     alt="Top Background"

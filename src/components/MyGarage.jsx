@@ -85,7 +85,7 @@ const MyGarage = () => {
   );
 
   return (
-    <div className="pb-20">
+    <div className="pb-20 container">
       <h1 className="text-4xl font-bold text-center text-primary mb-8">My Garage - SimLife</h1>
 
       {/* Search */}

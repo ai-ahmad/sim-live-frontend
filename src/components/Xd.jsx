@@ -47,7 +47,7 @@ const houses = [
 
 const Xd = () => {
   return (
-    <div className=" pb-20">
+    <div className=" pb-20 container">
       <h2 className="flex items-center justify-center font-bold text-2xl text-secondary mb-8">
         Home Details
       </h2>

@@ -79,7 +79,7 @@ const FamilyComponent = () => {
   };
 
   return (
-    <div className="pb-20 relative">
+    <div className="pb-20 relative container">
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
         {characters.map((character, index) => (
           <div
