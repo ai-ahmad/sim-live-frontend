@@ -39,9 +39,7 @@ const router = createBrowserRouter([
       { path: "/Settings", element: <Settings /> },
       { path: "/Shop", element: <Shop /> },
       { path: "/Trading", element: <Trading /> },
-      { path: "*", element: <ErrorPage /> }, // Error page for undefined routes
-      
-      
+      { path: "*", element: <ErrorPage /> }, 
     ],
   },
   {
@@ -59,6 +57,7 @@ root.render(
       <PersistGate loading={null} persistor={persistor}>
         <RouterProvider router={router} />
       </PersistGate>
+      
     </Provider>
   </StrictMode>
 );

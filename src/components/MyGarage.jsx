@@ -28,7 +28,34 @@ const MyGarage = () => {
       purchasePrice: '$175,000',
       mileage: '5,000 miles',
       condition: 'Like New',
-    }
+    },
+    {
+      id: 3,
+      name: 'Porsche 911 Turbo',
+      image: 'https://911uk.com/data/attachments/94/94751-510a1a6daa4a3baa95fd259af7a00a45.jpg',
+      purchaseDate: '2022-11-03',
+      purchasePrice: '$175,000',
+      mileage: '5,000 miles',
+      condition: 'Like New',
+    },
+    {
+      id: 3,
+      name: 'Porsche 911 Turbo',
+      image: 'https://911uk.com/data/attachments/94/94751-510a1a6daa4a3baa95fd259af7a00a45.jpg',
+      purchaseDate: '2022-11-03',
+      purchasePrice: '$175,000',
+      mileage: '5,000 miles',
+      condition: 'Like New',
+    },
+    {
+      id: 3,
+      name: 'Porsche 911 Turbo',
+      image: 'https://911uk.com/data/attachments/94/94751-510a1a6daa4a3baa95fd259af7a00a45.jpg',
+      purchaseDate: '2022-11-03',
+      purchasePrice: '$175,000',
+      mileage: '5,000 miles',
+      condition: 'Like New',
+    },
   ]);
 
   const [friends] = useState([
@@ -58,7 +85,7 @@ const MyGarage = () => {
   );
 
   return (
-    <div className="bg-gray-100 p-8 min-h-screen">
+    <div className="pb-20 container">
       <h1 className="text-4xl font-bold text-center text-primary mb-8">My Garage - SimLife</h1>
 
       {/* Search */}
@@ -75,7 +102,7 @@ const MyGarage = () => {
       {/* Car List */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
         {filteredCars.map((car) => (
-          <div key={car.id} className="bg-white rounded-lg shadow-lg p-4">
+          <div key={car.id} className=" rounded-lg shadow-lg p-4">
             <img src={car.image} alt={car.name} className="rounded-md mb-4 w-full h-48 object-cover" />
             <h2 className="text-xl font-bold text-primary mb-2">{car.name}</h2>
             <p className="text-gray-600 mb-2">Purchased on: <span className="text-black">{car.purchaseDate}</span></p>
@@ -95,7 +122,7 @@ const MyGarage = () => {
       {/* Modal */}
       {isModalOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white p-6 rounded-lg shadow-lg w-11/12 max-w-md">
+          <div className=" p-6 rounded-lg shadow-lg w-11/12 max-w-md">
             <h2 className="text-xl font-bold mb-4">Select a Friend to Gift {selectedCar.name}</h2>
             <table className="w-full text-left mb-4">
               <thead>

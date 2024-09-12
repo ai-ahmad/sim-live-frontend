@@ -13,6 +13,7 @@ const Home = () => {
   console.log(TimeBalance);
   const dispatch = useDispatch();
   const [isZoomed, setIsZoomed] = useState(false);
+  
   const [clicks, setClicks] = useState(() => {
     return parseInt(localStorage.getItem("clicks")) || 0;
   });
@@ -63,7 +64,7 @@ const Home = () => {
 
   return (
     <div
-      className="relative h-screen bg-white overflow-hidden flex flex-col"
+      className="  relative h-screen bg-white overflow-hidden flex flex-col"
       style={{ maxHeight: "100vh" }}
     >
       <div className="absolute top-0 left-0 z-20 ml-5">

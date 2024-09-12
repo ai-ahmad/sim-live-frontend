@@ -16,7 +16,7 @@ const Exclamation = () => {
     <div>
       <button onClick={handleClick}>
         <img
-          className={`size-20 cursor-pointer ${
+          className={`size-9 cursor-pointer ${
             isZoomed ? 'scale-125 z-50 transition-transform duration-300 ease-out' : 'transition-transform duration-300 ease-out'
           }`}
           src="./public/un.jpg"
