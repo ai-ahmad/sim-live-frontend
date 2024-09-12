@@ -15,11 +15,14 @@ import {
   ErrorPage,
   History,
 } from "./pages";
-import PrivateRoute from "./Service/PrivateRouter.jsx"; 
+import PrivateRoute from "./Service/PrivateRouter.jsx";
 import { PersistGate } from "redux-persist/integration/react";
-import { persistor, store } from "./store/store.js"; 
+import { persistor, store } from "./store/store.js";
 import { Provider } from "react-redux";
-import Auth from "./pages/Auth.jsx"; 
+import Auth from "./pages/Auth.jsx";
+import BusinessDashboard from "./pages/Business-sub-pages/BusinessDashboard.jsx";
+import BusinessBuy from "./pages/Business-sub-pages/BusinessBuy.jsx";
+import BusinessCreate from "./pages/Business-sub-pages/BusinessCreate.jsx";
 
 const router = createBrowserRouter([
   {
@@ -32,19 +35,27 @@ const router = createBrowserRouter([
     children: [
       { path: "/", element: <Home />, index: true },
       { path: "/About", element: <About /> },
-      { path: "/Businesses", element: <Businesses /> },
+      {
+        path: "/Businesses",
+        element: <Businesses />,
+        children: [
+          { path: "", element: <BusinessDashboard /> },
+          { path: "buy", element: <BusinessBuy /> },
+          { path: "create", element: <BusinessCreate /> },
+        ],
+      },
       { path: "/Help", element: <Help /> },
       { path: "/History", element: <History /> },
       { path: "/Profile", element: <Profile /> },
       { path: "/Settings", element: <Settings /> },
       { path: "/Shop", element: <Shop /> },
       { path: "/Trading", element: <Trading /> },
-      { path: "*", element: <ErrorPage /> }, 
+      { path: "*", element: <ErrorPage /> },
     ],
   },
   {
     path: "/auth",
-    element: <Auth />, 
+    element: <Auth />,
   },
 ]);
 
@@ -57,7 +68,6 @@ root.render(
       <PersistGate loading={null} persistor={persistor}>
         <RouterProvider router={router} />
       </PersistGate>
-      
     </Provider>
   </StrictMode>
 );
