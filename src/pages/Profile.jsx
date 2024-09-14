@@ -5,11 +5,16 @@ import Cls from "../components/MyGarage";
 import { MdFamilyRestroom } from "react-icons/md";
 import { MdGarage } from "react-icons/md";
 import { FaHouseChimneyMedical } from "react-icons/fa6";
+import { logout } from "../store/reducers/authSlice";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const Profile = () => {
   const [showAutomobile, setShowAutomobile] = useState(false);
   const [showHome, setShowHome] = useState(false);
   const [showFamily, setShowFamily] = useState(false);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const toggleAutomobileSection = () => {
     setShowAutomobile(!showAutomobile);
@@ -28,7 +33,19 @@ const Profile = () => {
     setShowAutomobile(false);
     setShowHome(false);
   };
-
+  const handleLogout = () => {
+    localStorage.removeItem('balance');
+    localStorage.removeItem('uid');
+    localStorage.removeItem('email');
+    localStorage.removeItem('shares');
+    localStorage.removeItem('crypto');
+    localStorage.removeItem('inflationRate');
+    localStorage.removeItem('business');
+    
+    dispatch(logout())
+    navigate("/auth");
+  };
+  
   return (
     <div className=" w-full  flex flex-col items-center bg-gray-100">
      <div className="w-full h-[50vh] bg-center bg-cover relative ">
@@ -69,7 +86,7 @@ const Profile = () => {
       </p>
     </div>
     <div>
-      <button className="bg-red-600 px-10 py-1 rounded-lg font-medium hover:bg-red-700 duration-300 hover:font-thin">Logout</button>
+      <button onClick={handleLogout} className="bg-red-600 px-10 py-1 rounded-lg font-medium hover:bg-red-700 duration-300 hover:font-thin">Logout</button>
     </div>
   </div>
 </div>
