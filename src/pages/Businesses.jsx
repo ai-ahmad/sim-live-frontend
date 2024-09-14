@@ -1,14 +1,15 @@
 import React, { useState } from "react";
-import { motion } from "framer-motion";
-import { Link, Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
+import { FaTachometerAlt, FaShoppingCart, FaPlusSquare } from "react-icons/fa";
 
 const Businesses = () => {
-  const [isOpen, setIsOpen] = useState(false);
-
-  const toggleSidebar = () => {
-    setIsOpen((prev) => !prev);
-  };
+  const [selected, setSelected] = useState(""); // State to track the selected button
   const navigate = useNavigate();
+
+  const handleNavigate = (path) => {
+    setSelected(path); // Update the selected button
+    navigate(path);
+  };
 
   return (
     <div className="flex">
@@ -18,7 +19,7 @@ const Businesses = () => {
           <label
             htmlFor="my-drawer-2"
             className="btn btn-primary drawer-button lg:hidden"
-            onClick={() => navigate("")}
+            onClick={() => handleNavigate("")}
           >
             Open
           </label>
@@ -29,24 +30,48 @@ const Businesses = () => {
             aria-label="close sidebar"
             className="drawer-overlay"
           ></label>
-          <ul className="menu w-80 text-base-content bg-base-300 lg:bg-transparent min-h-full p-4">
-            {/* Sidebar content here */}
+          <ul className="w-64 text-base-content bg-base-300 lg:bg-transparent min-h-full p-4">
             <li>
-              <button onClick={() => navigate("")}>Dashboard</button>
+              <button
+                onClick={() => handleNavigate("")}
+                className={`flex items-center px-4 py-2 w-full rounded-lg ${
+                  selected === "" 
+                    ? "bg-gradient-to-r from-purple-400 to-blue-500 text-white" 
+                    : "hover:bg-gradient-to-r hover:from-purple-400 hover:to-blue-500 hover:text-white"
+                }`}
+              >
+                <FaTachometerAlt className="mr-2" /> Dashboard
+              </button>
             </li>
             <li>
-              <button onClick={() => navigate("buy")}>Buy Business</button>
+              <button
+                onClick={() => handleNavigate("buy")}
+                className={`flex items-center px-4 py-2 w-full rounded-lg mt-2 ${
+                  selected === "buy" 
+                    ? "bg-gradient-to-r from-purple-400 to-blue-500 text-white" 
+                    : "hover:bg-gradient-to-r hover:from-purple-400 hover:to-blue-500 hover:text-white"
+                }`}
+              >
+                <FaShoppingCart className="mr-2" /> Buy Business
+              </button>
             </li>
             <li>
-              <button onClick={() => navigate("create")}>
-                Create Business
+              <button
+                onClick={() => handleNavigate("create")}
+                className={`flex items-center px-4 py-2 w-full rounded-lg mt-2 ${
+                  selected === "create" 
+                    ? "bg-gradient-to-r from-purple-400 to-blue-500 text-white" 
+                    : "hover:bg-gradient-to-r hover:from-purple-400 hover:to-blue-500 hover:text-white"
+                }`}
+              >
+                <FaPlusSquare className="mr-2" /> Create Business
               </button>
             </li>
           </ul>
         </div>
       </div>
       <div className="p-5 w-full lg:w-10/12 transition-all duration-300">
-        <Outlet /> {/* This should update based on the route */}
+        <Outlet />
       </div>
     </div>
   );

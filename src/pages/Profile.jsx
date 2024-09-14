@@ -42,24 +42,24 @@ const Profile = () => {
     <div className="mb-4">
       <img
         className="rounded-full w-20 h-20"
-        src="https://c4.wallpaperflare.com/wallpaper/46/727/663/eva-elfie-sweater-white-hair-hd-wallpaper-preview.jpg"
+        src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
         alt=""
       />
     </div>
     <div className="flex flex-row w-full justify-center space-x-8 mb-4">
       <p className="text-info">
-        Username: <span className="font-medium text-secondary">Eva</span>
+        Username: <span className="font-medium text-secondary">Abdulloh</span>
       </p>
       <p className="text-info">
-        Surname: <span className="font-medium text-secondary">Sexy</span>
+        Surname: <span className="font-medium text-secondary">Isroilov</span>
       </p>
     </div>
     <div className="flex flex-row w-full justify-center space-x-8 mb-4">
       <p className="text-info">
-        Age: <span className="font-medium text-secondary">20</span>
+        Age: <span className="font-medium text-secondary">16</span>
       </p>
       <p className="text-info">
-        Job: <span className="font-medium text-secondary">Porno Hub</span>
+        Job: <span className="font-medium text-secondary">Frontend Devlepper</span>
       </p>
     </div>
     <div className="flex flex-row w-full justify-center space-x-8 mb-4">
