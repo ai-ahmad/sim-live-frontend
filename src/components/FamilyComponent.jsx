@@ -43,7 +43,7 @@ const characters = [
     name: 'Baby Doe',
     role: 'Infant',
     description: 'The newest member of the family.',
-  },
+  }
 ];
 
 const FamilyComponent = () => {
@@ -77,9 +77,8 @@ const FamilyComponent = () => {
     setIsModalOpen(false);
     setSelectedCharacterIndex(null);
   };
-
   return (
-    <div className="pb-20 relative container">
+    <div className=" relative  pb-20 container mx-auto px-4">
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
         {characters.map((character, index) => (
           <div

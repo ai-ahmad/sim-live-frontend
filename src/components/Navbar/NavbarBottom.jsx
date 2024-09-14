@@ -9,7 +9,7 @@ const NavbarBottom = () => {
   const isActive = (path) => location.pathname === path;
 
   return (
-    <div className="btm-nav bg-base-300 text-2xl">
+    <div className="btm-nav bg-base-300 text-2xl ">
       <Link
         to="/shop"
         className={`text-info ${isActive("/shop") ? "active" : ""}`}

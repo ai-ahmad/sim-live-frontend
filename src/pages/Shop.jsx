@@ -29,7 +29,6 @@ const App = () => {
 
   return (
     <div className="w-full flex flex-col items-center bg-gray-100">
-      {/* Top Section: Coins and Money */}
       <div className="w-full h-16 mt-5 flex justify-between items-center px-4 lg:px-12">
         <div className="flex justify-start items-center bg-yellow-300 rounded-lg p-2 text-xl">
           <FaCoins className="mr-2" />
@@ -40,7 +39,6 @@ const App = () => {
         </div>
       </div>
 
-      {/* Navigation Bar */}
       <div className="flex justify-around w-full bg-white p-2 sm:p-4 mt-5 shadow-md rounded-lg">
         <div
           className={`flex flex-col items-center cursor-pointer ${activeTab === 'cars' ? 'text-purple-600' : 'text-gray-600'}`}
@@ -79,7 +77,6 @@ const App = () => {
         </div>
       </div>
 
-      {/* Tab Content */}
       <div className="mt-5 p-3 sm:p-5 w-full sm:w-11/12 bg-white shadow-md rounded-lg">
         {renderTabContent()}
       </div>
