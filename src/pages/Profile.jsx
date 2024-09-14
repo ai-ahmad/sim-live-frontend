@@ -68,6 +68,9 @@ const Profile = () => {
         <span className="font-medium text-secondary">10000000$</span>
       </p>
     </div>
+    <div>
+      <button className="bg-red-600 px-10 py-1 rounded-lg font-medium hover:bg-red-700 duration-300 hover:font-thin">Logout</button>
+    </div>
   </div>
 </div>
 
@@ -76,8 +79,6 @@ const Profile = () => {
         <ul className="menu bg-base-200 lg:menu-horizontal rounded-box">
           <li>
             <a onClick={toggleAutomobileSection}>
-             
-             
               <MdGarage className="size-5"/>
               My  Automobile
             </a>
