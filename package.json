@@ -10,6 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@canvasjs/charts": "^3.10.7",
+    "@canvasjs/react-charts": "^1.0.2",
     "@react-three/drei": "^9.111.4",
     "@react-three/fiber": "^8.17.6",
     "@reduxjs/toolkit": "^2.2.7",

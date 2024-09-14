@@ -23,6 +23,8 @@ import Auth from "./pages/Auth.jsx";
 import BusinessDashboard from "./pages/Business-sub-pages/BusinessDashboard.jsx";
 import BusinessBuy from "./pages/Business-sub-pages/BusinessBuy.jsx";
 import BusinessCreate from "./pages/Business-sub-pages/BusinessCreate.jsx";
+import { REGISTER } from "redux-persist";
+import Register from "./pages/Register.jsx";
 
 const router = createBrowserRouter([
   {
@@ -56,6 +58,10 @@ const router = createBrowserRouter([
   {
     path: "/auth",
     element: <Auth />,
+  },
+  {
+    path: "/register",
+    element: <Register/>,
   },
 ]);
 
