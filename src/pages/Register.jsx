@@ -34,7 +34,7 @@ const Register = () => {
     }
 
     try {
-      const response = await axios.post('http://localhost:5000/api/register-email', {
+      const response = await axios.post('http://localhost:8000/api/register-email', {
         username: formData.username,
         email: formData.email,
         password: formData.password,
@@ -57,12 +57,12 @@ const Register = () => {
       const { user } = result;
       const token = await user.getIdToken();
 
-      const response = await axios.post('http://localhost:5000/api/register-google', {
+      const response = await axios.post('http://localhost:8000/api/register-google', {
         token,
       });
 
       toast.success('Google sign-in successful!');
-      // navigate('/auth');
+      navigate('/');
     } catch (error) {
       console.error('Google sign-in error:', error);
       toast.error(error.response.data.error);
@@ -71,6 +71,7 @@ const Register = () => {
 
   return (
     <div className='h-screen flex justify-center items-center bg-[url("registerBG.jpg")]'>
+      <ToastContainer />
       <form
         onSubmit={handleSubmit}
         className="w-5/6 xl:w-2/4 min-h-[70vh] flex flex-col justify-between xl:h-1/2 bg-base-300 bg-opacity-80 rounded-2xl p-5 shadow-lg shadow-cyan-400 border-2 border-primary"

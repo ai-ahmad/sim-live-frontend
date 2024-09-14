@@ -6,7 +6,9 @@ import { BsApple } from "react-icons/bs";
 import axios from "axios";
 import { signInWithPopup } from "firebase/auth";
 import { auth, googleAuthProvider } from "../firebase";
-import { toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
+import { useDispatch } from "react-redux";
+import { login } from "../store/reducers/authSlice";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -14,21 +16,44 @@ const Login = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
   const GameName = import.meta.env.VITE_APP_SUB_TITLE;
+  const dispatch = useDispatch()
 
   const handleLogin = async (e) => {
     e.preventDefault();
-
+  
     try {
-      const response = await axios.post("http://localhost:5000/api/login-email", {
+      const response = await axios.post("http://localhost:8000/api/login-email", {
         email,
         password,
       });
-      console.log(response.data)
+      localStorage.setItem('balance', response.data.balance);
+      localStorage.setItem('uid', response.data.uid);
+      localStorage.setItem('email', response.data.email);
+      localStorage.setItem('shares', response.data.shares);
+      localStorage.setItem('crypto', response.data.crypto);
+      localStorage.setItem('inflationRate', response.data.inflationRate);
+      localStorage.setItem('business', response.data.business);
+  
+      // Dispatch user data to the Redux store
+      dispatch(login({
+        uid: response.data.uid,
+        email: response.data.email,
+        username: response.data.username,
+        balance: response.data.balance,
+        business: response.data.business,
+        shares: response.data.shares,
+        crypto: response.data.crypto,
+        inflationRate: response.data.inflationRate
+      }));
+      console.log(response.data);
+  
+      toast.success(response.data.message);
     } catch (err) {
       setError("Ошибка входа. Проверьте свои данные.");
+      toast.error(err.response?.data?.error || 'Ошибка входа.');
     }
   };
-
+  
   const handleGoogleSignIn = async () => {
     try {
       const result = await signInWithPopup(auth, googleAuthProvider);
@@ -36,33 +61,43 @@ const Login = () => {
   
       const token = await user.getIdToken();
   
-      const response = await axios.post('http://localhost:5000/api/login-google', {
+      const response = await axios.post('http://localhost:8000/api/login-google', {
         token,
       });
-      console.log(response.data);
   
       const { uid, displayName, email } = user;
-  
       const { balance, business, shares, crypto, inflationRate } = response.data;
-  
-      localStorage.setItem('uid', uid);
-      localStorage.setItem('username', displayName || response.data.username);
-      localStorage.setItem('email', email);
-      localStorage.setItem('balance', balance.toString());
-      localStorage.setItem('business', business);
-      localStorage.setItem('shares', shares.toString());
-      localStorage.setItem('crypto', crypto.toString());
-      localStorage.setItem('inflationRate', inflationRate.toString());
-  
+      localStorage.setItem('balance', response.data.balance);
+      localStorage.setItem('uid', response.data.uid);
+      localStorage.setItem('email', response.data.email);
+      localStorage.setItem('shares', response.data.shares);
+      localStorage.setItem('crypto', response.data.crypto);
+      localStorage.setItem('inflationRate', response.data.inflationRate);
+      localStorage.setItem('business', response.data.business);
+
+      // Dispatch user data to the Redux store
+      dispatch(login({
+        uid: response.data.uid,
+        email: response.data.email,
+        username: response.data.username,
+        balance: response.data.balance,
+        business: response.data.business,
+        shares: response.data.shares,
+        crypto: response.data.crypto,
+        inflationRate: response.data.inflationRate
+      }));
+      console.log(response.data);
       toast.success(response.data.message);
+      navigate("/");
     } catch (error) {
       console.error('Google sign-in error:', error);
       toast.error(error.response?.data?.error || 'Ошибка входа через Google.');
     }
-  };
+  };  
 
   return (
-    <div className="h-screen flex justify-center items-center bg-[url('loginBG.jpg')]">
+    <div className='h-screen flex justify-center items-center bg-[url("registerBG.jpg")]'>
+      <ToastContainer/>
       <form
         onSubmit={handleLogin}
         className="w-5/6 xl:w-2/4 min-h-[70vh] flex flex-col justify-between xl:h-1/2 bg-base-300 bg-opacity-80 rounded-2xl p-5 shadow-lg shadow-cyan-400 border-2 border-primary"
@@ -112,8 +147,6 @@ const Login = () => {
             />
           </label>
         </div>
-
-        {error && <p className="text-red-500">{error}</p>}
 
         <div className="flex justify-between items-center">
           <p></p>
