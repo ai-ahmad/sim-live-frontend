@@ -40,9 +40,9 @@ const router = createBrowserRouter([
         path: "/Businesses",
         element: <Businesses />,
         children: [
-          { path: "", element: <BusinessDashboard /> },
-          { path: "buy", element: <BusinessBuy /> },
-          { path: "create", element: <BusinessCreate /> },
+          { path: "", element: <BusinessDashboard /> }, // Dashboard as the default
+          { path: "buy", element: <BusinessBuy /> }, // Relative path
+          { path: "create", element: <BusinessCreate /> }, // Relative path
         ],
       },
       { path: "/Help", element: <Help /> },
