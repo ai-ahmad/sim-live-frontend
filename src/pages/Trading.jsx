@@ -23,12 +23,10 @@ const Products = () => {
   const [chartType, setChartType] = useState("AreaChart");
 
   useEffect(() => {
-    // Listen for product updates
     socket.on("updateProducts", (newProducts) => {
       setProducts(newProducts);
     });
 
-    // Cleanup on unmount
     return () => {
       socket.off("updateProducts");
     };

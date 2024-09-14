@@ -13,7 +13,7 @@ const Home = () => {
   console.log(TimeBalance);
   const dispatch = useDispatch();
   const [isZoomed, setIsZoomed] = useState(false);
-  
+
   const [clicks, setClicks] = useState(() => {
     return parseInt(localStorage.getItem("clicks")) || 0;
   });

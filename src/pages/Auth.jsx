@@ -3,12 +3,31 @@ import { Link } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import { FaApple, FaLock } from "react-icons/fa";
 import { BsApple } from "react-icons/bs";
+import { auth, googleProvider } from "../firebase";
+import { signInWithPopup } from "firebase/auth";
 
 const Auth = () => {
   const GameName = import.meta.env.VITE_APP_SUB_TITLE;
 
+  // Функция для входа с помощью Google
+  const signInWithGoogle = async () => {
+    try {
+      const result = await signInWithPopup(auth, googleProvider);
+      const user = result.user;
+      
+      // Сохраняем данные пользователя в localStorage (или отправляем на сервер)
+      localStorage.setItem("user", JSON.stringify(user));
+      console.log("User signed in:", user);
+      
+      // Перенаправление после успешного входа (например, в игру)
+      window.location.href = "/game";
+    } catch (error) {
+      console.error("Error during Google sign-in:", error);
+    }
+  };
+
   return (
-    <div className='h-screen flex  justify-center items-center bg-[url("loginBG.jpg")]'>
+    <div className='h-screen flex justify-center items-center bg-[url("loginBG.jpg")]'>
       <form
         action=""
         className="w-5/6 xl:w-2/4 min-h-[70vh] flex flex-col justify-between xl:h-1/2 bg-base-300 bg-opacity-80 rounded-2xl p-5 shadow-lg shadow-cyan-400 border-2 border-primary"
@@ -52,7 +71,11 @@ const Auth = () => {
           </Link>
         </div>
         <label className="flex flex-col mt-2 gap-2 relative">
-          <button className="font-bold btn btn-accent btn-outline" disabled>
+          <button
+            className="font-bold btn btn-accent btn-outline"
+            onClick={signInWithGoogle}
+            type="button"
+          >
             <FcGoogle />
             <span>Sign in With Google</span>
           </button>
@@ -74,23 +97,3 @@ const Auth = () => {
 };
 
 export default Auth;
-
-
-
-
-
-     {/* Stats and Other Information */}
-      {/* <div className="mt-4 text-center">
-        <p className="text-gray-600">Чистая стоимость</p>
-        <p className="text-lg text-green-700">1 064 129,45 so'm</p>
-        <p className="text-gray-600 mt-2">Баланс</p>
-        <p className="text-lg text-green-700">1 064 129,45 so'm</p>
-        <p className="text-gray-600 mt-2">Бизнес</p>
-        <p className="text-lg text-green-700">0,00 so'm</p>
-        <p className="text-gray-600 mt-2">Акции</p>
-        <p className="text-lg text-green-700">0,00 so'm</p>
-        <p className="text-gray-600 mt-2">Криптовалюта</p>
-        <p className="text-lg text-green-700">0,00 so'm</p>
-        <p className="text-gray-600 mt-2">Уровень инфляции</p>
-        <p className="text-lg text-red-700">1.00%</p>
-      </div> */}  
