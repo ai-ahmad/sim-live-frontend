@@ -5,9 +5,11 @@ import NavbarTop from "./components/Navbar/NavbarTop";
 import NavbarBottom from "./components/Navbar/NavbarBottom";
 import { Link, Outlet } from "react-router-dom";
 import { FcComments } from "react-icons/fc";
+import { useSelector } from "react-redux";
 
 function App() {
   const [count, setCount] = useState(0);
+  const store = useSelector((state) => state)
 
   return (
     <>
