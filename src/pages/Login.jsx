@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
-import { FaApple, FaLock } from "react-icons/fa";
 import { BsApple } from "react-icons/bs";
 import axios from "axios";
 import { signInWithPopup } from "firebase/auth";
@@ -13,27 +12,37 @@ import { login } from "../store/reducers/authSlice";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const navigate = useNavigate();
   const GameName = import.meta.env.VITE_APP_SUB_TITLE;
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
+
+  const API_URL = import.meta.env.VITE_API_URL;
+
+  // Utility function to save user data to localStorage
+  const saveUserDataToLocalStorage = (data) => {
+    localStorage.setItem('balance', data.balance);
+    localStorage.setItem('uid', data.uid);
+    localStorage.setItem('email', data.email);
+    localStorage.setItem('shares', data.shares);
+    localStorage.setItem('crypto', data.crypto);
+    localStorage.setItem('inflationRate', data.inflationRate);
+    localStorage.setItem('business', data.business);
+  };
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    setLoading(true);
   
     try {
-      const response = await axios.post("http://localhost:8000/api/login-email", {
+      const response = await axios.post(`${API_URL}/login-email`, {
         email,
         password,
       });
-      localStorage.setItem('balance', response.data.balance);
-      localStorage.setItem('uid', response.data.uid);
-      localStorage.setItem('email', response.data.email);
-      localStorage.setItem('shares', response.data.shares);
-      localStorage.setItem('crypto', response.data.crypto);
-      localStorage.setItem('inflationRate', response.data.inflationRate);
-      localStorage.setItem('business', response.data.business);
-  
+
+      saveUserDataToLocalStorage(response.data);
+
       // Dispatch user data to the Redux store
       dispatch(login({
         uid: response.data.uid,
@@ -45,35 +54,32 @@ const Login = () => {
         crypto: response.data.crypto,
         inflationRate: response.data.inflationRate
       }));
-      console.log(response.data);
-  
+
       toast.success(response.data.message);
+      setEmail('');
+      setPassword('');
+      navigate('/');
     } catch (err) {
       setError("Ошибка входа. Проверьте свои данные.");
       toast.error(err.response?.data?.error || 'Ошибка входа.');
+    } finally {
+      setLoading(false);
     }
   };
   
   const handleGoogleSignIn = async () => {
+    setLoading(true);
+
     try {
       const result = await signInWithPopup(auth, googleAuthProvider);
       const { user } = result;
-  
       const token = await user.getIdToken();
   
-      const response = await axios.post('http://localhost:8000/api/login-google', {
+      const response = await axios.post(`${API_URL}/login-google`, {
         token,
       });
-  
-      const { uid, displayName, email } = user;
-      const { balance, business, shares, crypto, inflationRate } = response.data;
-      localStorage.setItem('balance', response.data.balance);
-      localStorage.setItem('uid', response.data.uid);
-      localStorage.setItem('email', response.data.email);
-      localStorage.setItem('shares', response.data.shares);
-      localStorage.setItem('crypto', response.data.crypto);
-      localStorage.setItem('inflationRate', response.data.inflationRate);
-      localStorage.setItem('business', response.data.business);
+
+      saveUserDataToLocalStorage(response.data);
 
       // Dispatch user data to the Redux store
       dispatch(login({
@@ -86,18 +92,20 @@ const Login = () => {
         crypto: response.data.crypto,
         inflationRate: response.data.inflationRate
       }));
-      console.log(response.data);
+
       toast.success(response.data.message);
       navigate("/");
     } catch (error) {
       console.error('Google sign-in error:', error);
       toast.error(error.response?.data?.error || 'Ошибка входа через Google.');
+    } finally {
+      setLoading(false);
     }
-  };  
+  };
 
   return (
     <div className='h-screen flex justify-center items-center bg-[url("registerBG.jpg")]'>
-      <ToastContainer/>
+      <ToastContainer />
       <form
         onSubmit={handleLogin}
         className="w-5/6 xl:w-2/4 min-h-[70vh] flex flex-col justify-between xl:h-1/2 bg-base-300 bg-opacity-80 rounded-2xl p-5 shadow-lg shadow-cyan-400 border-2 border-primary"
@@ -121,6 +129,7 @@ const Login = () => {
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Введите ваш email"
               className="grow"
+              aria-label="Email"
               required
             />
           </label>
@@ -143,6 +152,7 @@ const Login = () => {
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Введите ваш пароль"
               className="grow"
+              aria-label="Password"
               required
             />
           </label>
@@ -155,7 +165,7 @@ const Login = () => {
           </Link>
         </div>
         <label className="flex flex-col mt-2 gap-2 relative">
-          <button type="button" onClick={handleGoogleSignIn} className="font-bold btn btn-accent btn-outline">
+          <button type="button" onClick={handleGoogleSignIn} className="font-bold btn btn-accent btn-outline" disabled={loading}>
             <FcGoogle />
             <span>Sign in With Google</span>
           </button>
@@ -164,7 +174,7 @@ const Login = () => {
             Sign in With Apple ID
           </button>
         </label>
-        <button className="mt-5 font-black font-mono text-lg tracking-wider btn btn-primary">
+        <button className="mt-5 font-black font-mono text-lg tracking-wider btn btn-primary" disabled={loading}>
           Начать игру
         </button>
       </form>
