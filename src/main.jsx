@@ -19,7 +19,7 @@ import PrivateRoute from "./Service/PrivateRouter.jsx";
 import { PersistGate } from "redux-persist/integration/react";
 import { persistor, store } from "./store/store.js";
 import { Provider } from "react-redux";
-import Auth from "./pages/Auth.jsx";
+import Login from "./pages/Login.jsx";
 import BusinessDashboard from "./pages/Business-sub-pages/BusinessDashboard.jsx";
 import BusinessBuy from "./pages/Business-sub-pages/BusinessBuy.jsx";
 import BusinessCreate from "./pages/Business-sub-pages/BusinessCreate.jsx";
@@ -57,7 +57,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/auth",
-    element: <Auth />,
+    element: <Login />,
   },
   {
     path: "/register",
