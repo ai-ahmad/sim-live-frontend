@@ -64,7 +64,7 @@ const Register = () => {
       const token = await user.getIdToken();
 
       const response = await axios.post(
-        "http://localhost:8000/api/register-google",
+        "http://localhost:8000/api/auth/register-google",
         {
           token,
         }

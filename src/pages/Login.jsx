@@ -36,7 +36,7 @@ const Login = () => {
     setLoading(true);
   
     try {
-      const response = await axios.post(`${API_URL}/login-email`, {
+      const response = await axios.post(`${API_URL}/api/auth/login-email`, {
         email,
         password,
       });
@@ -75,7 +75,7 @@ const Login = () => {
       const { user } = result;
       const token = await user.getIdToken();
   
-      const response = await axios.post(`${API_URL}/login-google`, {
+      const response = await axios.post(`${API_URL}/api/auth/login-google`, {
         token,
       });
 
