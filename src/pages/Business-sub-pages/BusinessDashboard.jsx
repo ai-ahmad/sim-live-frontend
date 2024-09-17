@@ -178,9 +178,7 @@ export default function BusinessDashboard() {
         </div>
 
         <div className="mb-8">
-          <h2 className="text-2xl font-bold mb-6 text-gray-800">
-            Top 3 Daromadli Bizneslar
-          </h2>
+          <h2 className="text-2xl font-bold mb-6 text-gray-800">Топ-3 прибыльных бизнеса</h2>
           <div className="grid gap-6 md:grid-cols-3">
             {topBusinesses.map((business, index) => (
               <Motion
@@ -205,17 +203,9 @@ export default function BusinessDashboard() {
                       </div>
                     </CardHeader>
                     <CardContent className="pt-6">
-                      <div className="text-2xl font-bold mb-2">
-                        {business.income.toLocaleString()} so'm
-                      </div>
-                      <Progress
-                        value={(business.income / totalTopIncome) * 100}
-                        className="h-2 mb-2"
-                      />
-                      <p className="text-sm text-gray-500">
-                        Umumiy daromadning{" "}
-                        {((business.income / totalTopIncome) * 100).toFixed(1)}%
-                      </p>
+                      <div className="text-2xl font-bold mb-2">{business.income.toLocaleString()} so'm</div>
+                      <Progress value={(business.income / totalTopIncome) * 100} className="h-2 mb-2" />
+                      <p className="text-sm text-gray-500">от общего дохода {((business.income / totalTopIncome) * 100).toFixed(1)}%</p>
                     </CardContent>
                   </Card>
                 )}
@@ -225,9 +215,7 @@ export default function BusinessDashboard() {
         </div>
 
         <div className="mb-8 bg-white rounded-2xl shadow-xl p-6 sm:p-10">
-          <h2 className="text-2xl font-bold mb-6 text-gray-800">
-            Bizneslar Daromadi Taqqoslama
-          </h2>
+          <h2 className="text-2xl font-bold mb-6 text-gray-800">Сравнение доходов от бизнеса</h2>
           <ResponsiveContainer width="100%" height={300}>
             <BarChart data={chartData}>
               <XAxis dataKey="name" />
@@ -239,48 +227,42 @@ export default function BusinessDashboard() {
         </div>
 
         <div className="mb-8 bg-white rounded-2xl shadow-xl p-6 sm:p-10">
-          <h2 className="text-2xl font-bold mb-6 text-gray-800">
-            Biznes Ko'rsatkichlari
-          </h2>
+          <h2 className="text-2xl font-bold mb-6 text-gray-800">Бизнес-показатели</h2>
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
             <Card>
               <CardContent className="flex flex-col items-center pt-6">
                 <DollarSign className="w-8 h-8 mb-4 text-green-500" />
-                <p className="text-xl font-semibold">
-                  {user.totalIncome.toLocaleString()} so'm
-                </p>
-                <p className="text-sm text-gray-500">Umumiy Daromad</p>
+                <p className="text-xl font-semibold">{user.totalIncome.toLocaleString()} uzs</p>
+                <p className="text-sm text-gray-500">Валовая прибыль</p>
               </CardContent>
             </Card>
             <Card>
               <CardContent className="flex flex-col items-center pt-6">
                 <BarChartIcon className="w-8 h-8 mb-4 text-blue-500" />
                 <p className="text-xl font-semibold">{allBusinesses.length}</p>
-                <p className="text-sm text-gray-500">Faol Bizneslar</p>
+                <p className="text-sm text-gray-500">Активный бизнес</p>
               </CardContent>
             </Card>
             <Card>
               <CardContent className="flex flex-col items-center pt-6">
                 <TrendingUp className="w-8 h-8 mb-4 text-purple-500" />
                 <p className="text-xl font-semibold">15%</p>
-                <p className="text-sm text-gray-500">O'sish Ko'rsatkichi</p>
+                <p className="text-sm text-gray-500">Темпы роста</p>
               </CardContent>
             </Card>
             <Card>
               <CardContent className="flex flex-col items-center pt-6">
                 <Users className="w-8 h-8 mb-4 text-yellow-500" />
                 <p className="text-xl font-semibold">1,234</p>
-                <p className="text-sm text-gray-500">Xodimlar Soni</p>
+                <p className="text-sm text-gray-500">Количество сотрудников</p>
               </CardContent>
             </Card>
           </div>
         </div>
 
         <div className="bg-white rounded-2xl shadow-xl p-6 sm:p-10 relative">
-          <h2 className="text-2xl font-bold mb-6 text-gray-800">
-            Barcha Bizneslaringiz
-          </h2>
-          <button
+          <h2 className="text-2xl font-bold mb-6 text-gray-800">Все ваши предприятия</h2>
+          <button 
             onClick={goToPrev}
             className="absolute top-1/2 left-4 transform -translate-y-1/2 text-4xl text-gray-400 hover:text-gray-600 transition-colors duration-200 focus:outline-none hidden md:block z-10"
           >
@@ -305,10 +287,8 @@ export default function BusinessDashboard() {
                     </div>
                   </CardHeader>
                   <CardContent className="pt-6">
-                    <div className="text-xl font-bold mb-2">
-                      {business.income.toLocaleString()} so'm
-                    </div>
-                    <p className="text-sm text-gray-500">Oylik daromad</p>
+                    <div className="text-xl font-bold mb-2">{business.income.toLocaleString()} uzs</div>
+                    <p className="text-sm text-gray-500">Ежемесячный доход</p>
                   </CardContent>
                 </Card>
               </div>
