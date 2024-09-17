@@ -23,9 +23,9 @@ import Login from "./pages/Login.jsx";
 import BusinessDashboard from "./pages/Business-sub-pages/BusinessDashboard.jsx";
 import BusinessBuy from "./pages/Business-sub-pages/BusinessBuy.jsx";
 import BusinessCreate from "./pages/Business-sub-pages/BusinessCreate.jsx";
-import { REGISTER } from "redux-persist";
 import Register from "./pages/Register.jsx";
 
+// Create the router
 const router = createBrowserRouter([
   {
     path: "/",
@@ -41,9 +41,9 @@ const router = createBrowserRouter([
         path: "/Businesses",
         element: <Businesses />,
         children: [
-          { path: "", element: <BusinessDashboard /> }, // Dashboard as the default
-          { path: "buy", element: <BusinessBuy /> }, // Relative path
-          { path: "create", element: <BusinessCreate /> }, // Relative path
+          { path: "", element: <BusinessDashboard /> },
+          { path: "buy", element: <BusinessBuy /> },
+          { path: "create", element: <BusinessCreate /> },
         ],
       },
       { path: "/Help", element: <Help /> },
@@ -61,10 +61,11 @@ const router = createBrowserRouter([
   },
   {
     path: "/register",
-    element: <Register/>,
+    element: <Register />,
   },
 ]);
 
+// Get root element and render the app
 const rootElement = document.getElementById("root");
 const root = createRoot(rootElement);
 
